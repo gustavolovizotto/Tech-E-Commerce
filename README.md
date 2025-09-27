@@ -22,7 +22,7 @@ A seguir, a lista dos membros que contribuíram para o desenvolvimento deste pro
 
 ## ✨ Descrição do Projeto
 
-O **Tech Ecommerc** é uma plataforma de comércio eletrônico *front-end* desenvolvida para simular a experiência de compra de produtos tecnológicos de forma **intuitiva e agradável**. 
+O **Tech Ecommerce** é uma plataforma de comércio eletrônico *front-end* desenvolvida para simular a experiência de compra de produtos tecnológicos de forma **intuitiva e agradável**. 
 
 O projeto é um **MVP (Produto Mínimo Viável)** que demonstra a manipulação do DOM e a gestão de estado (o carrinho) usando **JavaScript Vanilla (puro)**.
 
