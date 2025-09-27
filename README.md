@@ -1,4 +1,4 @@
-# 💻 Tech Ecommerc
+# 💻 Tech Ecommerce
 
 Um e-commerce moderno e responsivo, focado na venda de produtos de **tecnologia**. Desenvolvido com **HTML, CSS e JavaScript** puro.
 
