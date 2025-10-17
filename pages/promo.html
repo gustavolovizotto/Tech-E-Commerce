@@ -1,0 +1,363 @@
+<div class="promo-page">
+  <div class="promo-container">
+    <h1 class="promo-title">Promoções (173)</h1>
+    
+    <div class="promo-content">
+      <!-- SIDEBAR DE FILTROS -->
+      <aside class="promo-sidebar">
+        <div class="promo-search">
+          <img src="images/search-header.svg" alt="Procurar" />
+          <input type="text" placeholder="Procurar..." />
+        </div>
+
+        <div class="filter-header">
+          <span>Filtros</span>
+          <button class="filter-clear">Limpar</button>
+        </div>
+
+        <!-- Filtro Portão -->
+        <div class="filter-section">
+          <h3>Portão</h3>
+          <label><input type="checkbox" /> Apple</label>
+          <label><input type="checkbox" /> Acer</label>
+          <label><input type="checkbox" /> Microsoft</label>
+          <label><input type="checkbox" /> MSI</label>
+          <label><input type="checkbox" /> Lenovo</label>
+          <button class="filter-more">Ver mais...</button>
+        </div>
+
+        <!-- Filtro Marca -->
+        <div class="filter-section">
+          <h3>Marca</h3>
+          <label><input type="checkbox" /> Apple</label>
+          <label><input type="checkbox" /> Acer</label>
+          <label><input type="checkbox" /> Microsoft</label>
+          <label><input type="checkbox" /> MSI</label>
+          <label><input type="checkbox" /> Lenovo</label>
+          <button class="filter-more">Ver mais...</button>
+        </div>
+
+        <!-- Filtro Tamanho -->
+        <div class="filter-section">
+          <h3>Tamanho</h3>
+          <label><input type="checkbox" /> Menor que 11"</label>
+          <label><input type="checkbox" /> 11-13"</label>
+          <label><input type="checkbox" /> 13-14"</label>
+          <label><input type="checkbox" /> 15-16"</label>
+          <label><input type="checkbox" /> 16-17"</label>
+        </div>
+
+        <!-- Filtro Resolução -->
+        <div class="filter-section">
+          <h3>Resolução</h3>
+          <label><input type="checkbox" /> RAM</label>
+        </div>
+
+        <!-- Filtro RAM -->
+        <div class="filter-section">
+          <h3>RAM</h3>
+          <label><input type="checkbox" /> 2GB</label>
+          <label><input type="checkbox" /> 4GB</label>
+          <label><input type="checkbox" /> 8GB</label>
+          <label><input type="checkbox" /> 16GB</label>
+          <label><input type="checkbox" /> 14.0 GB</label>
+          <button class="filter-more">Ver mais...</button>
+        </div>
+
+        <!-- Filtro Processador -->
+        <div class="filter-section">
+          <h3>Processador</h3>
+          <select>
+            <option value="">Selecione...</option>
+            <option value="intel">Intel</option>
+            <option value="amd">AMD</option>
+          </select>
+        </div>
+      </aside>
+
+      <!-- GRID DE PRODUTOS -->
+      <div class="promo-products">
+        <div class="no-results" style="display: none;">
+          <p>Nenhum produto encontrado com os filtros selecionados.</p>
+        </div>
+        <!-- Produto 1 -->
+        <div class="promo-card" data-portao="apple" data-marca="apple" data-tamanho="13-14" data-ram="8gb" data-processador="intel">
+          <img src="images/promo/macbook.png" alt="Produto" class="promo-product-img" />
+          <div class="promo-product-info">
+            <span class="promo-brand">Apple</span>
+            <h3 class="promo-product-title">MacBook Pro 13"</h3>
+            <span class="promo-specs">Intel Core i5, 8GB RAM</span>
+            <span class="promo-price">R$2.090</span>
+            <div class="promo-actions">
+              <div class="promo-quantity">
+                <button class="qty-btn">-</button>
+                <span>1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <button class="promo-buy-btn">Comprar</button>
+            </div>
+            <div class="promo-footer">
+              <img src="images/promo/box.svg" alt="Estoque" class="promo-box-icon" />
+              <span class="promo-stock">2 unidades disponíveis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 2 -->
+        <div class="promo-card" data-portao="acer" data-marca="acer" data-tamanho="15-16" data-ram="16gb" data-processador="amd">
+          <img src="images/promo/macbook.png" alt="Produto" class="promo-product-img" />
+          <div class="promo-product-info">
+            <span class="promo-brand">Acer</span>
+            <h3 class="promo-product-title">Acer Aspire 5</h3>
+            <span class="promo-specs">AMD Ryzen 5, 16GB RAM</span>
+            <span class="promo-price">R$2.090</span>
+            <div class="promo-actions">
+              <div class="promo-quantity">
+                <button class="qty-btn">-</button>
+                <span>1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <button class="promo-buy-btn">Comprar</button>
+            </div>
+            <div class="promo-footer">
+              <img src="images/promo/box.svg" alt="Estoque" class="promo-box-icon" />
+              <span class="promo-stock">2 unidades disponíveis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 3 -->
+        <div class="promo-card" data-portao="microsoft" data-marca="microsoft" data-tamanho="13-14" data-ram="8gb" data-processador="intel">
+          <img src="images/promo/macbook.png" alt="Produto" class="promo-product-img" />
+          <div class="promo-product-info">
+            <span class="promo-brand">Microsoft</span>
+            <h3 class="promo-product-title">Surface Laptop 4</h3>
+            <span class="promo-specs">Intel Core i7, 8GB RAM</span>
+            <span class="promo-price">R$2.090</span>
+            <div class="promo-actions">
+              <div class="promo-quantity">
+                <button class="qty-btn">-</button>
+                <span>1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <button class="promo-buy-btn">Comprar</button>
+            </div>
+            <div class="promo-footer">
+              <img src="images/promo/box.svg" alt="Estoque" class="promo-box-icon" />
+              <span class="promo-stock">2 unidades disponíveis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 4 -->
+        <div class="promo-card" data-portao="msi" data-marca="msi" data-tamanho="15-16" data-ram="16gb" data-processador="intel">
+          <img src="images/promo/macbook.png" alt="Produto" class="promo-product-img" />
+          <div class="promo-product-info">
+            <span class="promo-brand">MSI</span>
+            <h3 class="promo-product-title">MSI Modern 15</h3>
+            <span class="promo-specs">Intel Core i7, 16GB RAM</span>
+            <span class="promo-price">R$2.090</span>
+            <div class="promo-actions">
+              <div class="promo-quantity">
+                <button class="qty-btn">-</button>
+                <span>1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <button class="promo-buy-btn">Comprar</button>
+            </div>
+            <div class="promo-footer">
+              <img src="images/promo/box.svg" alt="Estoque" class="promo-box-icon" />
+              <span class="promo-stock">6 unidades disponíveis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 5 -->
+        <div class="promo-card" data-portao="lenovo" data-marca="lenovo" data-tamanho="11-13" data-ram="4gb" data-processador="intel">
+          <img src="images/promo/macbook.png" alt="Produto" class="promo-product-img" />
+          <div class="promo-product-info">
+            <span class="promo-brand">Lenovo</span>
+            <h3 class="promo-product-title">Lenovo IdeaPad</h3>
+            <span class="promo-specs">Intel Core i3, 4GB RAM</span>
+            <span class="promo-price">R$2.090</span>
+            <div class="promo-actions">
+              <div class="promo-quantity">
+                <button class="qty-btn">-</button>
+                <span>1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <button class="promo-buy-btn">Comprar</button>
+            </div>
+            <div class="promo-footer">
+              <img src="images/promo/box.svg" alt="Estoque" class="promo-box-icon" />
+              <span class="promo-stock">2 unidades disponíveis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 6 -->
+        <div class="promo-card" data-portao="apple" data-marca="apple" data-tamanho="15-16" data-ram="16gb" data-processador="intel">
+          <img src="images/promo/macbook.png" alt="Produto" class="promo-product-img" />
+          <div class="promo-product-info">
+            <span class="promo-brand">Apple</span>
+            <h3 class="promo-product-title">MacBook Air 15"</h3>
+            <span class="promo-specs">Intel Core i5, 16GB RAM</span>
+            <span class="promo-price">R$2.090</span>
+            <div class="promo-actions">
+              <div class="promo-quantity">
+                <button class="qty-btn">-</button>
+                <span>1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <button class="promo-buy-btn">Comprar</button>
+            </div>
+            <div class="promo-footer">
+              <img src="images/promo/box.svg" alt="Estoque" class="promo-box-icon" />
+              <span class="promo-stock">2 unidades disponíveis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 7 -->
+        <div class="promo-card" data-portao="acer" data-marca="acer" data-tamanho="13-14" data-ram="8gb" data-processador="amd">
+          <img src="images/promo/macbook.png" alt="Produto" class="promo-product-img" />
+          <div class="promo-product-info">
+            <span class="promo-brand">Acer</span>
+            <h3 class="promo-product-title">Acer Swift 3</h3>
+            <span class="promo-specs">AMD Ryzen 7, 8GB RAM</span>
+            <span class="promo-price">R$2.090</span>
+            <div class="promo-actions">
+              <div class="promo-quantity">
+                <button class="qty-btn">-</button>
+                <span>1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <button class="promo-buy-btn">Comprar</button>
+            </div>
+            <div class="promo-footer">
+              <img src="images/promo/box.svg" alt="Estoque" class="promo-box-icon" />
+              <span class="promo-stock">2 unidades disponíveis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 8 -->
+        <div class="promo-card" data-portao="microsoft" data-marca="microsoft" data-tamanho="menor-11" data-ram="4gb" data-processador="intel">
+          <img src="images/promo/macbook.png" alt="Produto" class="promo-product-img" />
+          <div class="promo-product-info">
+            <span class="promo-brand">Microsoft</span>
+            <h3 class="promo-product-title">Surface Go 3</h3>
+            <span class="promo-specs">Intel Pentium, 4GB RAM</span>
+            <span class="promo-price">R$2.090</span>
+            <div class="promo-actions">
+              <div class="promo-quantity">
+                <button class="qty-btn">-</button>
+                <span>1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <button class="promo-buy-btn">Comprar</button>
+            </div>
+            <div class="promo-footer">
+              <img src="images/promo/box.svg" alt="Estoque" class="promo-box-icon" />
+              <span class="promo-stock">2 unidades disponíveis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 9 -->
+        <div class="promo-card" data-portao="msi" data-marca="msi" data-tamanho="16-17" data-ram="14gb" data-processador="amd">
+          <img src="images/promo/macbook.png" alt="Produto" class="promo-product-img" />
+          <div class="promo-product-info">
+            <span class="promo-brand">MSI</span>
+            <h3 class="promo-product-title">MSI Gaming 17"</h3>
+            <span class="promo-specs">AMD Ryzen 9, 14GB RAM</span>
+            <span class="promo-price">R$2.090</span>
+            <div class="promo-actions">
+              <div class="promo-quantity">
+                <button class="qty-btn">-</button>
+                <span>1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <button class="promo-buy-btn">Comprar</button>
+            </div>
+            <div class="promo-footer">
+              <img src="images/promo/box.svg" alt="Estoque" class="promo-box-icon" />
+              <span class="promo-stock">2 unidades disponíveis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 10 -->
+        <div class="promo-card" data-portao="lenovo" data-marca="lenovo" data-tamanho="15-16" data-ram="8gb" data-processador="amd">
+          <img src="images/promo/macbook.png" alt="Produto" class="promo-product-img" />
+          <div class="promo-product-info">
+            <span class="promo-brand">Lenovo</span>
+            <h3 class="promo-product-title">Lenovo ThinkPad</h3>
+            <span class="promo-specs">AMD Ryzen 5, 8GB RAM</span>
+            <span class="promo-price">R$2.090</span>
+            <div class="promo-actions">
+              <div class="promo-quantity">
+                <button class="qty-btn">-</button>
+                <span>1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <button class="promo-buy-btn">Comprar</button>
+            </div>
+            <div class="promo-footer">
+              <img src="images/promo/box.svg" alt="Estoque" class="promo-box-icon" />
+              <span class="promo-stock">2 unidades disponíveis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 11 -->
+        <div class="promo-card" data-portao="apple" data-marca="apple" data-tamanho="13-14" data-ram="2gb" data-processador="intel">
+          <img src="images/promo/macbook.png" alt="Produto" class="promo-product-img" />
+          <div class="promo-product-info">
+            <span class="promo-brand">Apple</span>
+            <h3 class="promo-product-title">MacBook 13"</h3>
+            <span class="promo-specs">Intel Core i3, 2GB RAM</span>
+            <span class="promo-price">R$2.090</span>
+            <div class="promo-actions">
+              <div class="promo-quantity">
+                <button class="qty-btn">-</button>
+                <span>1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <button class="promo-buy-btn">Comprar</button>
+            </div>
+            <div class="promo-footer">
+              <img src="images/promo/box.svg" alt="Estoque" class="promo-box-icon" />
+              <span class="promo-stock">2 unidades disponíveis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 12 -->
+        <div class="promo-card" data-portao="acer" data-marca="acer" data-tamanho="11-13" data-ram="4gb" data-processador="intel">
+          <img src="images/promo/macbook.png" alt="Produto" class="promo-product-img" />
+          <div class="promo-product-info">
+            <span class="promo-brand">Acer</span>
+            <h3 class="promo-product-title">Acer Chromebook</h3>
+            <span class="promo-specs">Intel Celeron, 4GB RAM</span>
+            <span class="promo-price">R$2.090</span>
+            <div class="promo-actions">
+              <div class="promo-quantity">
+                <button class="qty-btn">-</button>
+                <span>1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <button class="promo-buy-btn">Comprar</button>
+            </div>
+            <div class="promo-footer">
+              <img src="images/promo/box.svg" alt="Estoque" class="promo-box-icon" />
+              <span class="promo-stock">2 unidades disponíveis</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
