@@ -11,13 +11,13 @@ body {
 .hero-banner {
   display: flex;
   background-color: black;
-  height: 550px;
+  height: 50vh;
   width: 100%;
   position: relative;
   overflow: hidden;
   background: linear-gradient(90deg, #000521 0%, #000201 22.12%);
   align-items: flex-start;
-  padding: 5rem 100px 0 100px;
+  padding: 4rem 8rem 0 8rem;
 }
 
 .banner-text {
@@ -33,7 +33,7 @@ body {
   font-family: Righteous;
   font-weight: 400;
   font-style: Regular;
-  font-size: 39px;
+  font-size: clamp(1rem, 2vw, 4rem);
   line-height: 100%;
   letter-spacing: 0%;
   vertical-align: middle;
@@ -45,7 +45,7 @@ body {
   font-family: Inter;
   font-weight: 400;
   font-style: Regular;
-  font-size: 49px;
+  font-size: clamp(1.5rem, 2.5vw, 4rem);
   line-height: 110%;
   letter-spacing: 0%;
   vertical-align: middle;
@@ -60,7 +60,7 @@ body {
 .banner-img {
   z-index: 0;
   position: absolute;
-  right: 0%;
+  right: 15%;
   top: 0;
   height: 100%;
   opacity: 1;
@@ -68,7 +68,7 @@ body {
 
 .banner-img img {
   height: 100%;
-  width: auto;
+  width: clamp(800px, 50vw, 1000px);
   display: block;
 }
 
