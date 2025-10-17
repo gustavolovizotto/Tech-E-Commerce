@@ -4,10 +4,179 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tech e-commerce</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Righteous&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <header></header>
-    <main></main>
+    <main>
+      <section class="hero-banner">
+        <div class="banner-text">
+          <h2>Melhore seu Setup.</h2>
+          <h1>Desbloqueie o <span>Máximo</span> Desempenho.</h1>
+        </div>
+        <div class="banner-img">
+          <img src="./assets/bannerImg.png" alt="rtx 5070" />
+        </div>
+      </section>
+
+      <section class="promotions">
+        <div class="section-header">
+          <h3><span class="highlight">Promoções</span> da semana</h3>
+          <a href="#" class="view-all">View All ></a>
+        </div>
+        <div class="product-grid">
+          <div class="product-card">
+            <div class="product-badge">
+              <span class="discount">56% OFF</span>
+            </div>
+            <button class="favorite-btn">♡</button>
+            <img src="./assets/celphone.png" alt="Galaxy S22 Ultra" />
+            <h4>Galaxy S22 Ultra</h4>
+            <div class="price">
+              <span class="current-price">R$3.999</span>
+              <span class="old-price">R$3.999</span>
+            </div>
+            <p class="savings">Save - ₹32999</p>
+          </div>
+
+          <div class="product-card">
+            <div class="product-badge">
+              <span class="discount">56% OFF</span>
+            </div>
+            <button class="favorite-btn">♡</button>
+            <img
+              src="./assets/promotions2.png"
+              alt="Galaxy M13 (4GB | 64 GB)"
+            />
+            <h4>Galaxy M13 (4GB | 64 GB )</h4>
+            <div class="price">
+              <span class="current-price">R$3.999</span>
+              <span class="old-price">R$3.999</span>
+            </div>
+            <p class="savings">Save - ₹4500</p>
+          </div>
+
+          <div class="product-card">
+            <div class="product-badge">
+              <span class="discount">56% OFF</span>
+            </div>
+            <button class="favorite-btn">♡</button>
+            <img
+              src="./assets/promotions3.png"
+              alt="Galaxy M33 (4GB | 64 GB)"
+            />
+            <h4>Galaxy M33 (4GB | 64 GB )</h4>
+            <div class="price">
+              <span class="current-price">R$3.999</span>
+              <span class="old-price">R$3.999</span>
+            </div>
+            <p class="savings">Save - ₹8000</p>
+          </div>
+
+          <div class="product-card">
+            <div class="product-badge">
+              <span class="discount">56% OFF</span>
+            </div>
+            <button class="favorite-btn">♡</button>
+            <img
+              src="./assets/promotions4.png"
+              alt="Galaxy M53 (4GB | 64 GB)"
+            />
+            <h4>Galaxy M53 (4GB | 64 GB )</h4>
+            <div class="price">
+              <span class="current-price">R$3.999</span>
+              <span class="old-price">R$3.999</span>
+            </div>
+            <p class="savings">Save - ₹9000</p>
+          </div>
+
+          <div class="product-card">
+            <div class="product-badge">
+              <span class="discount">56% OFF</span>
+            </div>
+            <button class="favorite-btn">♡</button>
+            <img src="./assets/promotions.png" alt="Galaxy S22 Ultra" />
+            <h4>Galaxy S22 Ultra</h4>
+            <div class="price">
+              <span class="current-price">R$3.999</span>
+              <span class="old-price">R$3.999</span>
+            </div>
+            <p class="savings">Save - ₹18000</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="categories">
+        <div class="section-header">
+          <h3>Shop From <span class="highlight">Top Categories</span></h3>
+          <a href="#" class="view-all">View All ></a>
+        </div>
+        <div class="category-grid">
+          <div class="category-item">
+            <div class="category-icon">
+              <img src="./assets/celphone.png" alt="Mobile" />
+            </div>
+            <p>Mobile</p>
+          </div>
+
+          <div class="category-item">
+            <div class="category-icon">
+              <img src="./assets/hardware.png" alt="Cosmetics" />
+            </div>
+            <p>Hardware</p>
+          </div>
+
+          <div class="category-item">
+            <div class="category-icon">
+              <img src="./assets/watches.png" alt="Electronics" />
+            </div>
+            <p>Electronics</p>
+          </div>
+
+          <div class="category-item">
+            <div class="category-icon">
+              <img src="./assets/perifericos.png" alt="Furniture" />
+            </div>
+            <p>Periféricos</p>
+          </div>
+
+          <div class="category-item">
+            <div class="category-icon">
+              <img src="./assets/watches.png" alt="Watches" />
+            </div>
+            <p>Watches</p>
+          </div>
+
+          <div class="category-item">
+            <div class="category-icon">
+              <img src="./assets/noteobok.png" alt="Decor" />
+            </div>
+            <p>Notebooks</p>
+          </div>
+
+          <div class="category-item">
+            <div class="category-icon">
+              <img src="./assets/games.png" alt="Accessories" />
+            </div>
+            <p>Games</p>
+          </div>
+        </div>
+      </section>
+    </main>
     <footer></footer>
   </body>
 </html>
