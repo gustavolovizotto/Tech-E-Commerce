@@ -67,18 +67,29 @@ function initPageEventListeners() {
     const qtyDisplay = qtyControl.querySelector('span');
     
     if (minusBtn && plusBtn && qtyDisplay) {
-      minusBtn.addEventListener('click', function() {
+      minusBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); // Impede que o clique abra a página do produto
         let currentQty = parseInt(qtyDisplay.textContent);
         if (currentQty > 1) {
           qtyDisplay.textContent = currentQty - 1;
         }
       });
       
-      plusBtn.addEventListener('click', function() {
+      plusBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); // Impede que o clique abra a página do produto
         let currentQty = parseInt(qtyDisplay.textContent);
         qtyDisplay.textContent = currentQty + 1;
       });
     }
+  });
+
+  // Botão "Comprar" nos produtos da promoção
+  document.querySelectorAll('.promo-buy-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation(); // Impede que o clique abra a página do produto
+      // Aqui você pode adicionar a lógica de adicionar ao carrinho
+      alert('Produto adicionado ao carrinho!');
+    });
   });
 
   // Clique nos cards da página de promoções para abrir página de produto
