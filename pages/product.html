@@ -1,307 +1,203 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Apple MacBook Pro 14.2 Space Grey - Tech e-commerce</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../styles.css" />
-  </head>
-  <body>
-    <header>
-      <nav class="header-navbar">
-        <img
-          src="../images/logo-header.png"
-          alt="Tech e-commerce logo"
-          id="logo-home"
-          style="cursor: pointer"
-        />
-        <div class="search-bar-header">
-          <img src="../images/menu-header.svg" alt="Menu icon" />
-          <input type="text" placeholder="Pesquisar..." />
-          <button type="submit">
-            <img src="../images/search-header.svg" alt="Menu icon" />
+<div class="product-page">
+  <div class="breadcrumb">
+    <a href="#" onclick="loadPage('home'); return false;">Página inicial</a>
+    <span>›</span>
+    <a href="#">Notebook</a>
+    <span>›</span>
+    <a href="#">Macbooks</a>
+    <span>›</span>
+    <span>Apple MacBook Pro 14.2 Space Grey</span>
+  </div>
+
+  <div class="product-container">
+    <div class="product-left-section">
+      <div class="product-gallery">
+        <div class="gallery-item active">
+          <img
+            src="images/promo/macbook.png"
+            alt="Apple MacBook Pro 14.2 Space Grey"
+          />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="images/promo/macbook.png"
+            alt="Apple MacBook Pro 14.2 Space Grey"
+          />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="images/promo/macbook.png"
+            alt="Apple MacBook Pro 14.2 Space Grey"
+          />
+        </div>
+      </div>
+
+      <div class="product-info">
+        <p class="product-brand">Apple</p>
+        <h1 class="product-title">Apple MacBook Pro 14.2 Space Grey</h1>
+        <p class="product-specs">
+          M1 Pro - M1 Pro 14-core GPU - 16 GB RAM - 512 GB SSD - 14" 3024 ×
+          1964 @ 120 Hz - Wi-Fi 6
+        </p>
+
+        <div class="product-description">
+          <p>
+            O MacBook Pro oferece um desempenho incrível para computação,
+            gráficos e aprendizado de máquina M1, quer esteja funcionando em
+            bateria ou conectado à energia. E, com a arquitetura de bateria
+            fantástica que era incomparável em bateria de bateria
+            fantástica, você pode trabalhar em uma cliente FaceTime 1D de
+            1080p e a melhor câmera de áudio e vídeo em um notebook.
+            Carregado com macOS Monterey, que faz provavelmente de tudo o
+            que você faz para aproveitar ao máximo o M1 Pro, e a capacidade
+            do sistema é simplesmente apasmos a GPU ou simplesmente
+            desempenho de um notebook pode fazer — da faz aprazíveis das
+            desenvolvimento de baixa de arquivo até tarefas e a melhor
+            relação do mundo.
+          </p>
+        </div>
+      </div>
+
+      <div class="product-tabs">
+        <div class="tabs-header">
+          <button
+            class="tab-btn active"
+            onclick="showTab('funksjoner')"
+          >
+            Funções
+          </button>
+          <button
+            class="tab-btn"
+            onclick="showTab('especificacoes')"
+          >
+            Especificações
+          </button>
+          <button class="tab-btn" onclick="showTab('avancadas')">
+            Especificações Avançadas
+          </button>
+          <button class="tab-btn" onclick="showTab('acessorios')">
+            Acessórios
           </button>
         </div>
 
-        <div class="link-wrapper">
-          <a class="header-link" href="#promo" id="promo-link">Promoções</a>
-          <a class="header-link" href="#periferico">Periféricos</a>
-          <a class="header-link" href="#hardware">Hardware</a>
-          <a class="header-link" href="#atendimento">Atendimento</a>
-        </div>
-        <div class="header-icons">
-          <img src="../images/coracao-header.svg" alt="Search icon" />
-          <img src="../images/carrinho-header.svg" alt="Shopping cart icon" />
-          <img
-            src="../images/user.svg"
-            alt="User icon"
-            id="user-icon"
-            style="cursor: pointer"
-          />
-        </div>
-      </nav>
-    </header>
-
-    <main class="product-page">
-      <div class="breadcrumb">
-        <a href="../index.html">Página inicial</a>
-        <span>›</span>
-        <a href="#">Notebook</a>
-        <span>›</span>
-        <a href="#">Macbooks</a>
-        <span>›</span>
-        <span>Apple MacBook Pro 14.2 Space Grey</span>
-      </div>
-
-      <div class="product-container">
-        <div class="product-left-section">
-          <div class="product-gallery">
-            <div class="gallery-item active">
-              <img
-                src="../images/promo/macbook.png"
-                alt="Apple MacBook Pro 14.2 Space Grey"
-              />
-            </div>
-            <div class="gallery-item">
-              <img
-                src="../images/promo/macbook.png"
-                alt="Apple MacBook Pro 14.2 Space Grey"
-              />
-            </div>
-            <div class="gallery-item">
-              <img
-                src="../images/promo/macbook.png"
-                alt="Apple MacBook Pro 14.2 Space Grey"
-              />
-            </div>
-          </div>
-
-          <div class="product-info">
-            <p class="product-brand">Apple</p>
-            <h1 class="product-title">Apple MacBook Pro 14.2 Space Grey</h1>
-            <p class="product-specs">
-              M1 Pro - M1 Pro 14-core GPU - 16 GB RAM - 512 GB SSD - 14" 3024 ×
-              1964 @ 120 Hz - Wi-Fi 6
+        <div class="tabs-content">
+          <div id="funksjoner" class="tab-content active">
+            <h3>Absurdamente rápido</h3>
+            <p>
+              O M1 Pro eleva o desempenho excepcional da arquitetura M1 a um
+              nível profissional totalmente novo. And as práticas más
+              ambiciosos tornam-se fáceis de realizar.
             </p>
 
-            <div class="product-description">
-              <p>
-                O MacBook Pro oferece um desempenho incrível para computação,
-                gráficos e aprendizado de máquina M1, quer esteja funcionando em
-                bateria ou conectado à energia. E, com a arquitetura de bateria
-                fantástica que era incomparável em bateria de bateria
-                fantástica, você pode trabalhar em uma cliente FaceTime 1D de
-                1080p e a melhor câmera de áudio e vídeo em um notebook.
-                Carregado com macOS Monterey, que faz provavelmente de tudo o
-                que você faz para aproveitar ao máximo o M1 Pro, e a capacidade
-                do sistema é simplesmente apasmos a GPU ou simplesmente
-                desempenho de um notebook pode fazer — da faz aprazíveis das
-                desenvolvimento de baixa de arquivo até tarefas e a melhor
-                relação do mundo.
-              </p>
-            </div>
+            <h3>A sua energia acaba antes do dele</h3>
+            <p>
+              Desempenhe-se impressionante com uma autonomia de bateria
+              impressa, frutera nova melhor Apple Silicon foi incorporated.
+              Com uma placa grã, você pode controlar até quatro vezes mais
+              código de ter tempo do Lightroom Classic. E, no controle de
+              outros notebooks, o MacBook Pro oferece o mesmo desempenho
+              fantástico, esteja ou conectado à energia ou vida.
+            </p>
+
+            <h3>Reprodutores estimulantes</h3>
+            <p>
+              O novo MacBook Pro e o primeiro notebook professional com os
+              XDR (sistema em um chip). Outros profissionais com CPUs que
+              conseguem muito energia, GPUs separados e múltiplos chips,
+              tudo trabalhando em múltiplos chips sistema especialmente para
+              CPUs em voz escalar e estão especial horas do trabalho de suas
+              funções.
+            </p>
+
+            <h3>Liquid Retina XDR</h3>
+            <p>
+              A nova tela é um ecrã notebook poseu MacBook em 1000:000:1. O
+              controle HDC ganha vida sem falso, reflum e Xpps com melhores
+              horas nova excursionares, detalhes impressionantes em áreas
+              escuras e cores vibrantes e vibrantes. Todas as telas são
+              calibrados de fábrica e oferecem modos de referência
+              profissional para correção de cor HDR, fotografia, design e
+              produção de impressão.
+            </p>
+
+            <h3>ProMotion</h3>
+            <p>
+              ProMotion o ProMotion chega ao Mac, fazendo que para quem pode
+              jente rotação no seu usar, deve super fluido com movimentos. A
+              tecnologia ProMotion ajusta a taxa de trabalhe o conteúdo de
+              tela como movimento de até 120 Hz, ou do sistema
+              automaticamente do acordo de movimentar da conclusão. Estudes
+              de vibes podem escolher uma taxa de atualização fixa do de
+              aparte do desempenho de suas funções.
+            </p>
           </div>
 
-          <div class="product-tabs">
-            <div class="tabs-header">
-              <button
-                class="tab-btn active"
-                onclick="openTab(event, 'funksjoner')"
-              >
-                Funções
-              </button>
-              <button
-                class="tab-btn"
-                onclick="openTab(event, 'especificacoes')"
-              >
-                Especificações
-              </button>
-              <button class="tab-btn" onclick="openTab(event, 'avancadas')">
-                Especificações Avançadas
-              </button>
-              <button class="tab-btn" onclick="openTab(event, 'acessorios')">
-                Acessórios
-              </button>
-            </div>
-
-            <div class="tabs-content">
-              <div id="funksjoner" class="tab-content active">
-                <h3>Absurdamente rápido</h3>
-                <p>
-                  O M1 Pro eleva o desempenho excepcional da arquitetura M1 a um
-                  nível profissional totalmente novo. And as práticas más
-                  ambiciosos tornam-se fáceis de realizar.
-                </p>
-
-                <h3>A sua energia acaba antes do dele</h3>
-                <p>
-                  Desempenhe-se impressionante com uma autonomia de bateria
-                  impressa, frutera nova melhor Apple Silicon foi incorporated.
-                  Com uma placa grã, você pode controlar até quatro vezes mais
-                  código de ter tempo do Lightroom Classic. E, no controle de
-                  outros notebooks, o MacBook Pro oferece o mesmo desempenho
-                  fantástico, esteja ou conectado à energia ou vida.
-                </p>
-
-                <h3>Reprodutores estimulantes</h3>
-                <p>
-                  O novo MacBook Pro e o primeiro notebook professional com os
-                  XDR (sistema em um chip). Outros profissionais com CPUs que
-                  conseguem muito energia, GPUs separados e múltiplos chips,
-                  tudo trabalhando em múltiplos chips sistema especialmente para
-                  CPUs em voz escalar e estão especial horas do trabalho de suas
-                  funções.
-                </p>
-
-                <h3>Liquid Retina XDR</h3>
-                <p>
-                  A nova tela é um ecrã notebook poseu MacBook em 1000:000:1. O
-                  controle HDC ganha vida sem falso, reflum e Xpps com melhores
-                  horas nova excursionares, detalhes impressionantes em áreas
-                  escuras e cores vibrantes e vibrantes. Todas as telas são
-                  calibrados de fábrica e oferecem modos de referência
-                  profissional para correção de cor HDR, fotografia, design e
-                  produção de impressão.
-                </p>
-
-                <h3>ProMotion</h3>
-                <p>
-                  ProMotion o ProMotion chega ao Mac, fazendo que para quem pode
-                  jente rotação no seu usar, deve super fluido com movimentos. A
-                  tecnologia ProMotion ajusta a taxa de trabalhe o conteúdo de
-                  tela como movimento de até 120 Hz, ou do sistema
-                  automaticamente do acordo de movimentar da conclusão. Estudes
-                  de vibes podem escolher uma taxa de atualização fixa do de
-                  aparte do desempenho de suas funções.
-                </p>
-              </div>
-
-              <div id="especificacoes" class="tab-content">
-                <h3>Especificações Técnicas</h3>
-                <ul class="specs-list">
-                  <li><strong>Processador:</strong> Apple M1 Pro</li>
-                  <li><strong>GPU:</strong> 14-core</li>
-                  <li><strong>RAM:</strong> 16 GB</li>
-                  <li><strong>Armazenamento:</strong> 512 GB SSD</li>
-                  <li><strong>Tela:</strong> 14" 3024 × 1964 @ 120 Hz</li>
-                  <li><strong>Conectividade:</strong> Wi-Fi 6</li>
-                </ul>
-              </div>
-
-              <div id="avancadas" class="tab-content">
-                <h3>Especificações Avançadas</h3>
-                <ul class="specs-list">
-                  <li><strong>Sistema Operacional:</strong> macOS Monterey</li>
-                  <li>
-                    <strong>Portas:</strong> 3x Thunderbolt 4, HDMI, SD Card
-                    Reader
-                  </li>
-                  <li><strong>Bateria:</strong> Até 17 horas de uso</li>
-                  <li><strong>Webcam:</strong> 1080p FaceTime HD</li>
-                  <li>
-                    <strong>Áudio:</strong> Sistema de alto-falantes de 6
-                    speakers
-                  </li>
-                  <li><strong>Peso:</strong> 1.6 kg</li>
-                </ul>
-              </div>
-
-              <div id="acessorios" class="tab-content">
-                <h3>Acessórios Recomendados</h3>
-                <p>Aproveite ao máximo seu MacBook Pro com estes acessórios:</p>
-                <ul class="specs-list">
-                  <li>Adaptador USB-C para USB</li>
-                  <li>Case de proteção</li>
-                  <li>Magic Mouse</li>
-                  <li>Magic Keyboard</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-purchase-box">
-          <div class="purchase-price">R$ 16.769</div>
-
-          <div class="purchase-quantity">
-            <button class="qty-btn" onclick="decreaseQuantity()">-</button>
-            <input type="number" id="quantity" value="1" min="1" readonly />
-            <button class="qty-btn" onclick="increaseQuantity()">+</button>
+          <div id="especificacoes" class="tab-content">
+            <h3>Especificações Técnicas</h3>
+            <ul class="specs-list">
+              <li><strong>Processador:</strong> Apple M1 Pro</li>
+              <li><strong>GPU:</strong> 14-core</li>
+              <li><strong>RAM:</strong> 16 GB</li>
+              <li><strong>Armazenamento:</strong> 512 GB SSD</li>
+              <li><strong>Tela:</strong> 14" 3024 × 1964 @ 120 Hz</li>
+              <li><strong>Conectividade:</strong> Wi-Fi 6</li>
+            </ul>
           </div>
 
-          <button class="purchase-buy-btn">Comprar</button>
+          <div id="avancadas" class="tab-content">
+            <h3>Especificações Avançadas</h3>
+            <ul class="specs-list">
+              <li><strong>Sistema Operacional:</strong> macOS Monterey</li>
+              <li>
+                <strong>Portas:</strong> 3x Thunderbolt 4, HDMI, SD Card
+                Reader
+              </li>
+              <li><strong>Bateria:</strong> Até 17 horas de uso</li>
+              <li><strong>Webcam:</strong> 1080p FaceTime HD</li>
+              <li>
+                <strong>Áudio:</strong> Sistema de alto-falantes de 6
+                speakers
+              </li>
+              <li><strong>Peso:</strong> 1.6 kg</li>
+            </ul>
+          </div>
 
-          <div class="purchase-delivery">
-            <img
-              src="../images/promo/box.svg"
-              alt="Entrega"
-              class="delivery-icon"
-            />
-            <div class="delivery-info">
-              <p class="delivery-title">3 peças em estoque</p>
-              <p class="delivery-time">1-2 dias útil</p>
-            </div>
+          <div id="acessorios" class="tab-content">
+            <h3>Acessórios Recomendados</h3>
+            <p>Aproveite ao máximo seu MacBook Pro com estes acessórios:</p>
+            <ul class="specs-list">
+              <li>Adaptador USB-C para USB</li>
+              <li>Case de proteção</li>
+              <li>Magic Mouse</li>
+              <li>Magic Keyboard</li>
+            </ul>
           </div>
         </div>
       </div>
-    </main>
+    </div>
 
-    <footer></footer>
+    <div class="product-purchase-box">
+      <div class="purchase-price">R$ 16.769</div>
 
-    <script>
-      function openTab(evt, tabName) {
-        const tabContents = document.getElementsByClassName("tab-content");
-        for (let i = 0; i < tabContents.length; i++) {
-          tabContents[i].classList.remove("active");
-        }
+      <div class="purchase-quantity">
+        <button class="qty-btn" onclick="decreaseQuantity()">-</button>
+        <input type="number" id="quantity" value="1" min="1" readonly />
+        <button class="qty-btn" onclick="increaseQuantity()">+</button>
+      </div>
 
-        const tabButtons = document.getElementsByClassName("tab-btn");
-        for (let i = 0; i < tabButtons.length; i++) {
-          tabButtons[i].classList.remove("active");
-        }
+      <button class="purchase-buy-btn">Comprar</button>
 
-        document.getElementById(tabName).classList.add("active");
-        evt.currentTarget.classList.add("active");
-      }
-
-      function increaseQuantity() {
-        const quantityInput = document.getElementById("quantity");
-        quantityInput.value = parseInt(quantityInput.value) + 1;
-      }
-
-      function decreaseQuantity() {
-        const quantityInput = document.getElementById("quantity");
-        if (parseInt(quantityInput.value) > 1) {
-          quantityInput.value = parseInt(quantityInput.value) - 1;
-        }
-      }
-
-      document
-        .getElementById("logo-home")
-        .addEventListener("click", function () {
-          window.location.href = "../index.html";
-        });
-
-      document
-        .getElementById("user-icon")
-        .addEventListener("click", function () {
-          window.location.href = "account.html";
-        });
-
-      document.querySelectorAll(".gallery-item").forEach((item) => {
-        item.addEventListener("click", function () {
-          document.querySelectorAll(".gallery-item").forEach((el) => {
-            el.classList.remove("active");
-          });
-          this.classList.add("active");
-        });
-      });
-    </script>
-  </body>
-</html>
+      <div class="purchase-delivery">
+        <img
+          src="images/promo/box.svg"
+          alt="Entrega"
+          class="delivery-icon"
+        />
+        <div class="delivery-info">
+          <p class="delivery-title">3 peças em estoque</p>
+          <p class="delivery-time">1-2 dias útil</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
