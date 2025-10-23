@@ -9,7 +9,6 @@ body {
   display: flex;
   background-color: black;
   height: 50vh;
-  width: 100%;
   position: relative;
   overflow: hidden;
   background: linear-gradient(90deg, #000521 0%, #000201 22.12%);
