@@ -5,144 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tech e-commerce</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header>
       <nav class="header-navbar">
-        <img src="images/logo-header.png" alt="Tech e-commerce logo" />
+        <img src="images/logo-header.png" alt="Tech e-commerce logo" id="logo-home" style="cursor: pointer;" />
         <!--search bar-->
-<div class="search-bar-header">
-  <img src="images/menu-header.svg" alt="Menu icon" />
-    <input type="text" placeholder="Pesquisar..." />
-    <button type="submit"><img src="images/search-header.svg" alt="Menu icon" /></button>
-</div>
+        <div class="search-bar-header">
+          <img src="images/menu-header.svg" alt="Menu icon" />
+          <input type="text" placeholder="Pesquisar..." />
+          <button type="submit"><img src="images/search-header.svg" alt="Menu icon" /></button>
+        </div>
 
         <!--links-->
         <div class="link-wrapper">
-        <a class="header-link" href="#promo">Promoções</a>
-        <a class="header-link" href="#periferico">Periféricos</a>
-        <a class="header-link" href="#hardware">Hardware</a>
-        <a class="header-link" href="#atendimento">Atendimento</a>
+          <a class="header-link" href="#promo" id="promo-link">Promoções</a>
+          <a class="header-link" href="#periferico">Periféricos</a>
+          <a class="header-link" href="#hardware">Hardware</a>
+          <a class="header-link" href="#atendimento">Atendimento</a>
         </div> 
         <div class="header-icons">
           <img src="images/coracao-header.svg" alt="Search icon" />
           <img src="images/carrinho-header.svg" alt="Shopping cart icon" />
-          <img src="images/user.svg" alt="User icon" />
+          <img src="images/user.svg" alt="User icon" id="user-icon" style="cursor: pointer;" />
         </div>
       </nav>
     </header>
-    <main>
-
-
-
-      <!--BANNERS-->
-      <div class="banners">
-        <img src="images/banner-intel.png" alt="Banner 1" />
-        <img src="images/banner-amd.png" alt="Banner 2" />
-        <img src="images/banner-gpu.png" alt="Banner 3" /> 
-        <img src="images/banner-screen.png" alt="Banner 4" /> 
-      </div>
-
-      <!--Catálogo de produtos-->
-      <section class="catalog-section">
-        <div class="catalog-grid">
-          <!--ISSO AQUI É CADA CARD-->
-          <div class="catalog-card">
-            <button class="catalog-fav"><img src="images/coracao-header.svg" alt="Favorito"></button>
-            <span class="catalog-discount">56%<br>OFF</span>
-            <img class="catalog-img" src="images/catalogo-2/cell.png" alt="Galaxy S22 Ultra">
-            <div class="catalog-info">
-              <h3>Galaxy S22 Ultra</h3>
-              <div class="catalog-prices">
-                <span class="catalog-price">R$3.999</span>
-                <span class="catalog-old">R$4.999</span>
-              </div>
-              <span class="catalog-cash">R$1000</span>
-            </div>
-          </div>
-          <!--FIM DO CARD-->
-          <!--ISSO AQUI É CADA CARD-->
-          <div class="catalog-card">
-            <button class="catalog-fav"><img src="images/coracao-header.svg" alt="Favorito"></button>
-            <span class="catalog-discount">56%<br>OFF</span>
-            <img class="catalog-img" src="images/catalogo-2/cell.png" alt="Galaxy S22 Ultra">
-            <div class="catalog-info">
-              <h3>Galaxy S22 Ultra</h3>
-              <div class="catalog-prices">
-                <span class="catalog-price">R$3.999</span>
-                <span class="catalog-old">R$4.999</span>
-              </div>
-              <span class="catalog-cash">R$1000</span>
-            </div>
-          </div>
-          <!--FIM DO CARD-->
-          <!--ISSO AQUI É CADA CARD-->
-          <div class="catalog-card">
-            <button class="catalog-fav"><img src="images/coracao-header.svg" alt="Favorito"></button>
-            <span class="catalog-discount">56%<br>OFF</span>
-            <img class="catalog-img" src="images/catalogo-2/cell.png" alt="Galaxy S22 Ultra">
-            <div class="catalog-info">
-              <h3>Galaxy S22 Ultra</h3>
-              <div class="catalog-prices">
-                <span class="catalog-price">R$3.999</span>
-                <span class="catalog-old">R$4.999</span>
-              </div>
-              <span class="catalog-cash">R$1000</span>
-            </div>
-          </div>
-          <!--FIM DO CARD-->
-          <!--ISSO AQUI É CADA CARD-->
-          <div class="catalog-card">
-            <button class="catalog-fav"><img src="images/coracao-header.svg" alt="Favorito"></button>
-            <span class="catalog-discount">56%<br>OFF</span>
-            <img class="catalog-img" src="images/catalogo-2/cell.png" alt="Galaxy S22 Ultra">
-            <div class="catalog-info">
-              <h3>Galaxy S22 Ultra</h3>
-              <div class="catalog-prices">
-                <span class="catalog-price">R$3.999</span>
-                <span class="catalog-old">R$4.999</span>
-              </div>
-              <span class="catalog-cash">R$1000</span>
-            </div>
-          </div>
-          <!--FIM DO CARD-->
-          <!--ISSO AQUI É CADA CARD-->
-          <div class="catalog-card">
-            <button class="catalog-fav"><img src="images/coracao-header.svg" alt="Favorito"></button>
-            <span class="catalog-discount">56%<br>OFF</span>
-            <img class="catalog-img" src="images/catalogo-2/cell.png" alt="Galaxy S22 Ultra">
-            <div class="catalog-info">
-              <h3>Galaxy S22 Ultra</h3>
-              <div class="catalog-prices">
-                <span class="catalog-price">R$3.999</span>
-                <span class="catalog-old">R$4.999</span>
-              </div>
-              <span class="catalog-cash">R$1000</span>
-            </div>
-          </div>
-          <!--FIM DO CARD-->
-          <!--ISSO AQUI É CADA CARD-->
-          <div class="catalog-card">
-            <button class="catalog-fav"><img src="images/coracao-header.svg" alt="Favorito"></button>
-            <span class="catalog-discount">56%<br>OFF</span>
-            <img class="catalog-img" src="images/catalogo-2/cell.png" alt="Galaxy S22 Ultra">
-            <div class="catalog-info">
-              <h3>Galaxy S22 Ultra</h3>
-              <div class="catalog-prices">
-                <span class="catalog-price">R$3.999</span>
-                <span class="catalog-old">R$4.999</span>
-              </div>
-              <span class="catalog-cash">R$1000</span>
-            </div>
-          </div>
-          <!--FIM DO CARD-->
-          </div>
-        </div>
-      </section>
+    
+    <main id="main-content">
+      <!-- O conteúdo será carregado dinamicamente aqui -->
     </main>
+    
     <footer></footer>
     <script src="script.js"></script>
   </body>
