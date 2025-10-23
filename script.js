@@ -25,6 +25,10 @@ async function loadPage(pageName) {
       loadUserProfile();
     }
     
+    if (pageName === 'product') {
+      initProductPage();
+    }
+    
   } catch (error) {
     console.error('Erro ao carregar página:', error);
     mainContent.innerHTML = '<p>Erro ao carregar o conteúdo.</p>';
@@ -36,6 +40,7 @@ function initPageEventListeners() {
   // Favoritos no catálogo
   document.querySelectorAll('.catalog-fav').forEach(btn => {
     btn.addEventListener('click', function(e) {
+      e.stopPropagation(); // Previne que o clique abra a página do produto
       const img = btn.querySelector('img');
       const isFilled = img.getAttribute('data-filled') === 'true';
       if (isFilled) {
@@ -45,6 +50,13 @@ function initPageEventListeners() {
         img.src = 'images/coracao1.svg';
         img.setAttribute('data-filled', 'true');
       }
+    });
+  });
+
+  // Clique nos cards do catálogo para abrir página de produto
+  document.querySelectorAll('.catalog-card').forEach(card => {
+    card.addEventListener('click', function() {
+      loadPage('product');
     });
   });
 
@@ -67,6 +79,13 @@ function initPageEventListeners() {
         qtyDisplay.textContent = currentQty + 1;
       });
     }
+  });
+
+  // Clique nos cards da página de promoções para abrir página de produto
+  document.querySelectorAll('.promo-card').forEach(card => {
+    card.addEventListener('click', function() {
+      loadPage('product');
+    });
   });
 
   // Navegação Login <-> Cadastro
@@ -508,4 +527,89 @@ function initializeFilters() {
       });
     }
   });
+}
+
+// ====== FUNÇÕES DA PÁGINA DE PRODUTO ======
+
+// Inicializa a página de produto
+function initProductPage() {
+  // Event listeners para thumbnails
+  document.querySelectorAll('.thumbnail').forEach(thumb => {
+    thumb.addEventListener('click', function() {
+      const imgSrc = this.querySelector('img').src;
+      changeMainImage(imgSrc);
+    });
+  });
+  
+  // Event listeners para botões de quantidade
+  const decreaseBtn = document.querySelector('.qty-btn[onclick="decreaseQuantity()"]');
+  const increaseBtn = document.querySelector('.qty-btn[onclick="increaseQuantity()"]');
+  
+  if (decreaseBtn) {
+    decreaseBtn.addEventListener('click', decreaseQuantity);
+  }
+  
+  if (increaseBtn) {
+    increaseBtn.addEventListener('click', increaseQuantity);
+  }
+  
+  // Event listeners para abas
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const tabName = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+      showTab(tabName);
+    });
+  });
+}
+
+// Muda a imagem principal
+function changeMainImage(imageSrc) {
+  const mainImg = document.getElementById('main-product-img');
+  if (mainImg) {
+    mainImg.src = imageSrc;
+  }
+}
+
+// Diminui a quantidade
+function decreaseQuantity() {
+  const quantitySpan = document.getElementById('quantity');
+  if (quantitySpan) {
+    let currentQty = parseInt(quantitySpan.textContent);
+    if (currentQty > 1) {
+      quantitySpan.textContent = currentQty - 1;
+    }
+  }
+}
+
+// Aumenta a quantidade
+function increaseQuantity() {
+  const quantitySpan = document.getElementById('quantity');
+  if (quantitySpan) {
+    let currentQty = parseInt(quantitySpan.textContent);
+    quantitySpan.textContent = currentQty + 1;
+  }
+}
+
+// Mostra a aba selecionada
+function showTab(tabName) {
+  // Remove classe active de todas as abas
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  document.querySelectorAll('.tab-content').forEach(content => {
+    content.classList.remove('active');
+  });
+  
+  // Adiciona classe active na aba selecionada
+  const activeBtn = document.querySelector(`.tab-btn[onclick="showTab('${tabName}')"]`);
+  const activeContent = document.getElementById(tabName);
+  
+  if (activeBtn) {
+    activeBtn.classList.add('active');
+  }
+  
+  if (activeContent) {
+    activeContent.classList.add('active');
+  }
 }
