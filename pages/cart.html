@@ -1,0 +1,159 @@
+<section class="cart-page">
+  <div class="cart-container">
+    <div class="cart-header">
+      <h1 class="cart-title">Carrinho de Compras</h1>
+      <p class="cart-subtitle">Revise seus itens antes de finalizar a compra</p>
+    </div>
+
+    <div class="cart-content">
+      <div class="cart-items">
+        <div class="cart-item">
+          <div class="item-image">
+            <img src="images/celphone.png" alt="Galaxy S22 Ultra" />
+          </div>
+          <div class="item-details">
+            <h3 class="item-name">Galaxy S22 Ultra</h3>
+            <p class="item-specs">128GB, Preto, 5G</p>
+            <div class="item-price">
+              <span class="current-price">R$ 3.999</span>
+              <span class="old-price">R$ 4.999</span>
+            </div>
+          </div>
+          <div class="item-quantity">
+            <button class="qty-btn minus">-</button>
+            <input type="number" value="1" min="1" class="qty-input" />
+            <button class="qty-btn plus">+</button>
+          </div>
+          <div class="item-total">
+            <span class="total-price">R$ 3.999</span>
+          </div>
+          <button class="remove-btn">
+            <span>×</span>
+          </button>
+        </div>
+
+        <div class="cart-item">
+          <div class="item-image">
+            <img src="images/hardware.png" alt="Mouse Razer" />
+          </div>
+          <div class="item-details">
+            <h3 class="item-name">Mouse Razer DeathAdder</h3>
+            <p class="item-specs">RGB, 16000 DPI, Preto</p>
+            <div class="item-price">
+              <span class="current-price">R$ 299</span>
+            </div>
+          </div>
+          <div class="item-quantity">
+            <button class="qty-btn minus">-</button>
+            <input type="number" value="2" min="1" class="qty-input" />
+            <button class="qty-btn plus">+</button>
+          </div>
+          <div class="item-total">
+            <span class="total-price">R$ 598</span>
+          </div>
+          <button class="remove-btn">
+            <span>×</span>
+          </button>
+        </div>
+
+        <div class="cart-item">
+          <div class="item-image">
+            <img src="images/dealsCable.jpg" alt="Cabo USB" />
+          </div>
+          <div class="item-details">
+            <h3 class="item-name">Cabo USB-C</h3>
+            <p class="item-specs">2m, Carregamento Rápido, Amarelo</p>
+            <div class="item-price">
+              <span class="current-price">R$ 49</span>
+            </div>
+          </div>
+          <div class="item-quantity">
+            <button class="qty-btn minus">-</button>
+            <input type="number" value="3" min="1" class="qty-input" />
+            <button class="qty-btn plus">+</button>
+          </div>
+          <div class="item-total">
+            <span class="total-price">R$ 147</span>
+          </div>
+          <button class="remove-btn">
+            <span>×</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="cart-summary">
+        <div class="summary-card">
+          <h3 class="summary-title">Resumo do Pedido</h3>
+
+          <div class="summary-row">
+            <span>Subtotal (3 itens)</span>
+            <span>R$ 4.744</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Frete</span>
+            <span class="free-shipping">Grátis</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Desconto</span>
+            <span class="discount">-R$ 1.000</span>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-row total">
+            <span>Total</span>
+            <span>R$ 3.744</span>
+          </div>
+
+          <button class="checkout-btn">Finalizar Compra</button>
+
+          <div class="payment-methods">
+            <p class="payment-title">Formas de Pagamento</p>
+            <div class="payment-icons">
+              <span class="payment-icon">💳</span>
+              <span class="payment-icon">📱</span>
+              <span class="payment-icon">🏦</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cart-benefits">
+          <div class="benefit-item">
+            <div class="benefit-icon">🚚</div>
+            <div class="benefit-text">
+              <h4>Frete Grátis</h4>
+              <p>Para compras acima de R$ 200</p>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">🔒</div>
+            <div class="benefit-text">
+              <h4>Compra Segura</h4>
+              <p>Seus dados protegidos</p>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">↩️</div>
+            <div class="benefit-text">
+              <h4>Troca Fácil</h4>
+              <p>30 dias para trocar</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-cart" style="display: none">
+      <div class="empty-icon">
+        <img src="images/cartempty.svg" alt="Carrinho Vazio" />
+      </div>
+      <h2>Carrinho Vazio</h2>
+      <p>Adicione alguns produtos ao seu carrinho para começar a comprar!</p>
+      <button class="continue-shopping-btn">Continuar Comprando</button>
+    </div>
+  </div>
+</section>
