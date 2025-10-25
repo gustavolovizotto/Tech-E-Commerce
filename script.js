@@ -8,6 +8,8 @@ async function loadPage(pageName) {
     const html = await response.text();
     mainContent.innerHTML = html;
 
+    localStorage.setItem("currentPage", pageName);
+
     initPageEventListeners();
 
     if (pageName === "promo") {
@@ -231,7 +233,8 @@ if (cartIcon) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  loadPage("home");
+  const currentPage = localStorage.getItem("currentPage") || "home";
+  loadPage(currentPage);
   updateCartIcon();
 });
 
