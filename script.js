@@ -29,6 +29,10 @@ async function loadPage(pageName) {
     if (pageName === "cart") {
       initCartPage();
     }
+
+    if (pageName === "admin") {
+      initAdminPage();
+    }
   } catch (error) {
     console.error("Erro ao carregar página:", error);
     mainContent.innerHTML = "<p>Erro ao carregar o conteúdo.</p>";
@@ -209,6 +213,14 @@ if (promoLink) {
   promoLink.addEventListener("click", function (e) {
     e.preventDefault();
     loadPage("promo");
+  });
+}
+
+const adminLink = document.getElementById("admin-link");
+if (adminLink) {
+  adminLink.addEventListener("click", function (e) {
+    e.preventDefault();
+    loadPage("admin");
   });
 }
 
@@ -970,5 +982,140 @@ function checkEmptyCart() {
   } else {
     if (cartContent) cartContent.style.display = "grid";
     if (emptyCart) emptyCart.style.display = "none";
+  }
+}
+
+/* Admin Page Logic */
+
+function initAdminPage() {
+  renderAdminList();
+
+  const form = document.getElementById("admin-form");
+  if (form) {
+    form.addEventListener("submit", handleAdminRegister);
+  }
+
+  const clearBtn = document.getElementById("admin-clear-btn");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", clearAdminForm);
+  }
+
+  const deleteAllBtn = document.getElementById("admin-delete-all-btn");
+  if (deleteAllBtn) {
+    deleteAllBtn.addEventListener("click", deleteAllAdminItems);
+  }
+
+  const searchInput = document.getElementById("admin-search");
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => searchAdminItems(e.target.value));
+  }
+}
+
+function handleAdminRegister(e) {
+  e.preventDefault();
+
+  const nameInput = document.getElementById("admin-name");
+  const emailInput = document.getElementById("admin-email");
+
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+
+  if (!name || !email) {
+    alert("Por favor, preencha todos os campos.");
+    return;
+  }
+
+  const newUser = {
+    id: Date.now(),
+    date: new Date().toLocaleString("pt-BR"),
+    name: name,
+    email: email,
+  };
+
+  const adminUsers = getAdminUsers();
+  adminUsers.push(newUser);
+  saveAdminUsers(adminUsers);
+
+  renderAdminList();
+  clearAdminForm();
+  alert("Usuário cadastrado com sucesso!");
+}
+
+function getAdminUsers() {
+  const users = localStorage.getItem("adminUsers");
+  return users ? JSON.parse(users) : [];
+}
+
+function saveAdminUsers(users) {
+  localStorage.setItem("adminUsers", JSON.stringify(users));
+}
+
+function renderAdminList(usersToRender = null) {
+  const tbody = document.getElementById("admin-list-body");
+  const noResults = document.getElementById("admin-no-results");
+  
+  if (!tbody) return;
+
+  const users = usersToRender || getAdminUsers();
+  tbody.innerHTML = "";
+
+  if (users.length === 0) {
+    if (noResults) noResults.style.display = "block";
+    return;
+  }
+
+  if (noResults) noResults.style.display = "none";
+
+  users.forEach((user) => {
+    const li = document.createElement("li");
+    li.className = "admin-list-item";
+    li.innerHTML = `
+      <div class="item-info">
+        <span class="item-date"><strong>Data:</strong> ${user.date}</span>
+        <span class="item-name"><strong>Nome:</strong> ${user.name}</span>
+        <span class="item-email"><strong>E-mail:</strong> ${user.email}</span>
+      </div>
+      <button class="btn-icon" onclick="deleteAdminItem(${user.id})" title="Excluir">
+        <img src="images/trash.svg" alt="Excluir" style="width: 20px; height: 20px;">
+      </button>
+    `;
+    tbody.appendChild(li);
+  });
+}
+
+function deleteAdminItem(id) {
+  if (confirm("Tem certeza que deseja excluir este usuário?")) {
+    const users = getAdminUsers();
+    const updatedUsers = users.filter((user) => user.id !== id);
+    saveAdminUsers(updatedUsers);
+    renderAdminList();
+  }
+}
+
+function deleteAllAdminItems() {
+  if (confirm("Tem certeza que deseja excluir TODOS os usuários? Esta ação não pode ser desfeita.")) {
+    localStorage.removeItem("adminUsers");
+    renderAdminList();
+    alert("Todos os usuários foram excluídos.");
+  }
+}
+
+function searchAdminItems(query) {
+  const users = getAdminUsers();
+  const lowerQuery = query.toLowerCase();
+
+  const filteredUsers = users.filter(
+    (user) =>
+      user.name.toLowerCase().includes(lowerQuery) ||
+      user.email.toLowerCase().includes(lowerQuery)
+  );
+
+  renderAdminList(filteredUsers);
+}
+
+function clearAdminForm() {
+  const form = document.getElementById("admin-form");
+  if (form) {
+    form.reset();
   }
 }
