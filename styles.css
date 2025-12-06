@@ -3095,6 +3095,261 @@ html {
     gap: 2.5rem;
   }
 
+/* ============================================================================
+   ESTILOS PARA PEDIDOS E FAVORITOS
+   ============================================================================ */
+
+/* Cards de Pedidos */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.order-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.order-info h3 {
+  font-family: "Inter", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f264a;
+  margin: 0 0 0.5rem 0;
+}
+
+.order-date {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.order-status {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+}
+
+.order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.order-item-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #f3f4f6;
+}
+
+.order-item-info {
+  flex: 1;
+}
+
+.order-item-info h4 {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f264a;
+  margin: 0 0 0.25rem 0;
+}
+
+.order-item-info p {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0 0 0.25rem 0;
+}
+
+.order-item-info span {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.order-item-price {
+  font-family: "Inter", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1f264a;
+}
+
+.order-summary {
+  padding-top: 1rem;
+  border-top: 2px solid #f3f4f6;
+}
+
+.order-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.875rem;
+}
+
+.order-summary-row.total {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1f264a;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 0.5rem;
+}
+
+/* Cards de Favoritos */
+.favorites-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.favorite-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.favorite-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.favorite-img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.favorite-info {
+  flex: 1;
+}
+
+.favorite-info h3 {
+  font-family: "Inter", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f264a;
+  margin: 0 0 0.5rem 0;
+}
+
+.favorite-specs {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0 0 0.75rem 0;
+}
+
+.favorite-prices {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.favorite-price {
+  font-family: "Inter", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f264a;
+}
+
+.favorite-old-price {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.875rem;
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+.favorite-date {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin: 0.5rem 0 0 0;
+}
+
+.remove-favorite-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #ffffff;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+  font-size: 1.5rem;
+  color: #ef4444;
+  font-weight: bold;
+}
+
+.remove-favorite-btn:hover {
+  background: #fee2e2;
+  transform: scale(1.1);
+}
+
+.empty-message {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  color: #64748b;
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 2px dashed #e5e7eb;
+}
+
   .contact-info {
     width: 100%;
     max-width: 21.375rem;

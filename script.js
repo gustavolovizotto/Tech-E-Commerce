@@ -31,7 +31,14 @@ async function loadPage(pageName) {
 
     if (pageName === "account") {
       loadUserProfile();
+      loadUserOrders();
+      loadUserFavorites();
     }
+
+    // Atualiza estado dos botões de favorito após carregar qualquer página
+    setTimeout(() => {
+      updateFavoriteButtons();
+    }, 100);
 
     if (pageName === "product") {
       initProductPage();
@@ -64,12 +71,18 @@ function initPageEventListeners() {
       e.stopPropagation();
       const img = btn.querySelector("img");
       const isFilled = img.getAttribute("data-filled") === "true";
+      const card = this.closest(".catalog-card");
+      
       if (isFilled) {
+        // Remove dos favoritos
         img.src = "images/coracao-header.svg";
         img.setAttribute("data-filled", "false");
+        removeFromFavorites(card);
       } else {
+        // Adiciona aos favoritos
         img.src = "images/coracao1.svg";
         img.setAttribute("data-filled", "true");
+        addToFavorites(card);
       }
     });
   });
@@ -721,11 +734,16 @@ function changeMainImage(imageSrc) {
  * @description Decrementa o valor da quantidade exibida, mas não permite valores menores que 1
  */
 function decreaseQuantity() {
-  const quantitySpan = document.getElementById("quantity");
-  if (quantitySpan) {
-    let currentQty = parseInt(quantitySpan.textContent);
-    if (currentQty > 1) {
-      quantitySpan.textContent = currentQty - 1;
+  const quantityElement = document.getElementById("quantity");
+  if (quantityElement) {
+    // Pode ser span ou input
+    const currentValue = parseInt(quantityElement.textContent || quantityElement.value || "1");
+    if (currentValue > 1) {
+      if (quantityElement.tagName === "INPUT") {
+        quantityElement.value = currentValue - 1;
+      } else {
+        quantityElement.textContent = currentValue - 1;
+      }
     }
   }
 }
@@ -735,10 +753,15 @@ function decreaseQuantity() {
  * @description Incrementa o valor da quantidade exibida
  */
 function increaseQuantity() {
-  const quantitySpan = document.getElementById("quantity");
-  if (quantitySpan) {
-    let currentQty = parseInt(quantitySpan.textContent);
-    quantitySpan.textContent = currentQty + 1;
+  const quantityElement = document.getElementById("quantity");
+  if (quantityElement) {
+    // Pode ser span ou input
+    const currentValue = parseInt(quantityElement.textContent || quantityElement.value || "1");
+    if (quantityElement.tagName === "INPUT") {
+      quantityElement.value = currentValue + 1;
+    } else {
+      quantityElement.textContent = currentValue + 1;
+    }
   }
 }
 
@@ -795,22 +818,39 @@ function saveCart(cart) {
 /**
  * Adiciona um produto ao carrinho de compras
  * @param {Object} productData - Objeto com os dados do produto (id, name, price, quantity, etc.)
- * @description Se o produto já existe no carrinho, incrementa a quantidade.
- * Caso contrário, adiciona um novo item. Atualiza o ícone do carrinho e exibe notificação
+ * @description Se o produto já existe no carrinho (mesmo nome e preço), incrementa a quantidade.
+ * Caso contrário, adiciona um novo item. Atualiza o ícone do carrinho e exibe notificação.
+ * Se estiver na página do carrinho, recarrega os itens.
  */
 function addToCart(productData) {
   const cart = getCart();
-  const existingItem = cart.find((item) => item.id === productData.id);
+  // Busca produto existente pelo nome e preço (não pelo ID que muda a cada adição)
+  const existingItem = cart.find(
+    (item) => item.name === productData.name && item.price === productData.price
+  );
 
   if (existingItem) {
     existingItem.quantity += productData.quantity;
   } else {
+    // Gera ID único baseado no nome e timestamp para evitar duplicatas
+    productData.id = `product-${productData.name.replace(/\s+/g, "-").toLowerCase()}-${Date.now()}`;
     cart.push(productData);
   }
 
   saveCart(cart);
   updateCartIcon();
   showAddToCartNotification();
+
+  // Se estiver na página do carrinho, recarrega os itens
+  const currentPage = localStorage.getItem("currentPage");
+  if (currentPage === "cart") {
+    loadCartItems();
+    updateCartSummary();
+    // Reatribui event listeners após recarregar
+    setTimeout(() => {
+      attachCartEventListeners();
+    }, 100);
+  }
 }
 
 /**
@@ -830,7 +870,7 @@ function removeFromCart(productId) {
  * @param {string} productId - ID do produto
  * @param {number} quantity - Nova quantidade (se <= 0, remove o item)
  * @description Atualiza a quantidade do item. Se a quantidade for 0 ou menor, remove o item.
- * Atualiza o ícone do carrinho após a alteração
+ * Atualiza o ícone do carrinho após a alteração. Recarrega a página do carrinho se necessário.
  */
 function updateCartQuantity(productId, quantity) {
   const cart = getCart();
@@ -839,6 +879,16 @@ function updateCartQuantity(productId, quantity) {
   if (item) {
     if (quantity <= 0) {
       removeFromCart(productId);
+      // Recarrega itens se estiver na página do carrinho
+      const currentPage = localStorage.getItem("currentPage");
+      if (currentPage === "cart") {
+        loadCartItems();
+        updateCartSummary();
+        checkEmptyCart();
+        setTimeout(() => {
+          attachCartEventListeners();
+        }, 100);
+      }
     } else {
       item.quantity = quantity;
       saveCart(cart);
@@ -877,13 +927,16 @@ function getProductDataFromProductPage() {
     document.querySelector(".purchase-price")?.textContent || "R$ 0";
   const productImage =
     document.querySelector(".gallery-item.active img")?.src ||
+    document.querySelector(".gallery-item img")?.src ||
     "images/promo/macbook.png";
-  const quantity = parseInt(
-    document.getElementById("quantity")?.textContent || "1"
-  );
+  
+  // Busca quantidade do span ou input
+  const quantityElement = document.getElementById("quantity");
+  const quantity = quantityElement
+    ? parseInt(quantityElement.textContent || quantityElement.value || "1")
+    : 1;
 
   return {
-    id: `product-${Date.now()}`,
     name: productTitle,
     brand: productBrand,
     specs: productSpecs,
@@ -915,7 +968,6 @@ function getProductDataFromCatalog(cardElement) {
   );
 
   return {
-    id: `catalog-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     name: title,
     brand: brand,
     specs: specs,
@@ -1032,50 +1084,85 @@ function updateCartIcon() {
  */
 function initCartPage() {
   loadCartItems();
+  attachCartEventListeners();
+  updateCartSummary();
+}
+
+/**
+ * Anexa event listeners aos elementos do carrinho
+ * @description Função separada para poder reatribuir listeners após recarregar itens
+ */
+function attachCartEventListeners() {
+  // Remove listeners anteriores para evitar duplicação
+  const oldButtons = document.querySelectorAll(".qty-btn");
+  const oldInputs = document.querySelectorAll(".qty-input");
+  const oldRemoveBtns = document.querySelectorAll(".remove-btn");
 
   // Event listeners para botões de aumentar/diminuir quantidade
   document.querySelectorAll(".qty-btn").forEach((btn) => {
-    btn.addEventListener("click", function (e) {
+    // Remove listener anterior se existir
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    
+    newBtn.addEventListener("click", function (e) {
       e.stopPropagation();
       const isMinus = this.classList.contains("minus");
       const qtyInput = this.parentElement.querySelector(".qty-input");
-      const currentValue = parseInt(qtyInput.value);
-      const productId = this.closest(".cart-item").dataset.productId;
+      if (!qtyInput) return;
+      
+      const currentValue = parseInt(qtyInput.value) || 1;
+      const productId = this.closest(".cart-item")?.dataset.productId;
+
+      if (!productId) return;
 
       if (isMinus && currentValue > 1) {
         qtyInput.value = currentValue - 1;
         updateCartQuantity(productId, currentValue - 1);
+        updateItemTotal(this.closest(".cart-item"));
       } else if (!isMinus) {
         qtyInput.value = currentValue + 1;
         updateCartQuantity(productId, currentValue + 1);
+        updateItemTotal(this.closest(".cart-item"));
       }
-
-      updateItemTotal(this.closest(".cart-item"));
     });
   });
 
   // Event listeners para input de quantidade (edição manual)
   document.querySelectorAll(".qty-input").forEach((input) => {
-    input.addEventListener("change", function () {
+    const newInput = input.cloneNode(true);
+    input.parentNode.replaceChild(newInput, input);
+    
+    newInput.addEventListener("change", function () {
       if (this.value < 1) this.value = 1;
-      const productId = this.closest(".cart-item").dataset.productId;
-      updateCartQuantity(productId, parseInt(this.value));
-      updateItemTotal(this.closest(".cart-item"));
+      const productId = this.closest(".cart-item")?.dataset.productId;
+      if (productId) {
+        updateCartQuantity(productId, parseInt(this.value));
+        updateItemTotal(this.closest(".cart-item"));
+      }
     });
   });
 
   // Event listeners para botões de remover item
   document.querySelectorAll(".remove-btn").forEach((btn) => {
-    btn.addEventListener("click", function (e) {
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    
+    newBtn.addEventListener("click", function (e) {
       e.stopPropagation();
       const cartItem = this.closest(".cart-item");
-      const productId = cartItem.dataset.productId;
+      const productId = cartItem?.dataset.productId;
+
+      if (!productId) return;
 
       if (confirm("Deseja remover este item do carrinho?")) {
         removeFromCart(productId);
-        cartItem.remove();
+        loadCartItems();
         updateCartSummary();
         checkEmptyCart();
+        // Reatribui listeners após remover
+        setTimeout(() => {
+          attachCartEventListeners();
+        }, 100);
       }
     });
   });
@@ -1083,26 +1170,32 @@ function initCartPage() {
   // Event listener para botão de checkout
   const checkoutBtn = document.querySelector(".checkout-btn");
   if (checkoutBtn) {
-    checkoutBtn.addEventListener("click", function () {
-      alert("Redirecionando para o checkout...");
+    // Remove listener anterior
+    const newCheckoutBtn = checkoutBtn.cloneNode(true);
+    checkoutBtn.parentNode.replaceChild(newCheckoutBtn, checkoutBtn);
+    
+    newCheckoutBtn.addEventListener("click", function () {
+      handleCheckout();
     });
   }
 
   // Event listener para botão de continuar comprando
   const continueBtn = document.querySelector(".continue-shopping-btn");
   if (continueBtn) {
-    continueBtn.addEventListener("click", function () {
+    const newContinueBtn = continueBtn.cloneNode(true);
+    continueBtn.parentNode.replaceChild(newContinueBtn, continueBtn);
+    
+    newContinueBtn.addEventListener("click", function () {
       loadPage("home");
     });
   }
-
-  updateCartSummary();
 }
 
 /**
  * Carrega e renderiza os itens do carrinho na página
  * @description Busca os itens do localStorage, cria elementos HTML para cada item
- * e os adiciona ao container. Se o carrinho estiver vazio, exibe a mensagem apropriada
+ * e os adiciona ao container. Se o carrinho estiver vazio, exibe a mensagem apropriada.
+ * Calcula o total de cada item baseado na quantidade.
  */
 function loadCartItems() {
   const cart = getCart();
@@ -1117,29 +1210,52 @@ function loadCartItems() {
     return;
   }
 
+  // Mostra o conteúdo do carrinho se houver itens
+  const cartContent = document.querySelector(".cart-content");
+  if (cartContent) {
+    cartContent.style.display = "grid";
+  }
+  const emptyCart = document.querySelector(".empty-cart");
+  if (emptyCart) {
+    emptyCart.style.display = "none";
+  }
+
   cart.forEach((item) => {
     const cartItem = document.createElement("div");
     cartItem.className = "cart-item";
-    cartItem.dataset.productId = item.id;
+    cartItem.dataset.productId = item.id || `item-${Date.now()}`;
+
+    // Calcula o preço unitário e total
+    const priceText = (item.price || "0")
+      .replace("R$", "")
+      .replace(/\./g, "")
+      .replace(",", ".")
+      .trim();
+    const unitPrice = parseFloat(priceText) || 0;
+    const quantity = item.quantity || 1;
+    const totalPrice = unitPrice * quantity;
 
     cartItem.innerHTML = `
       <div class="item-image">
-        <img src="${item.image}" alt="${item.name}" />
+        <img src="${item.image || "images/promo/macbook.png"}" alt="${item.name || "Produto"}" />
       </div>
       <div class="item-details">
-        <h3 class="item-name">${item.name}</h3>
-        <p class="item-specs">${item.specs}</p>
+        <h3 class="item-name">${item.name || "Produto"}</h3>
+        <p class="item-specs">${item.specs || ""}</p>
         <div class="item-price">
-          <span class="current-price">${item.price}</span>
+          <span class="current-price">${item.price || "R$ 0"}</span>
         </div>
       </div>
       <div class="item-quantity">
         <button class="qty-btn minus">-</button>
-        <input type="number" value="${item.quantity}" min="1" class="qty-input" />
+        <input type="number" value="${quantity}" min="1" class="qty-input" />
         <button class="qty-btn plus">+</button>
       </div>
       <div class="item-total">
-        <span class="total-price">${item.price}</span>
+        <span class="total-price">R$ ${totalPrice.toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}</span>
       </div>
       <button class="remove-btn">
         <span>×</span>
@@ -1162,13 +1278,21 @@ function updateItemTotal(cartItem) {
   const totalPrice = cartItem.querySelector(".total-price");
 
   if (qtyInput && currentPrice && totalPrice) {
-    const quantity = parseInt(qtyInput.value);
-    const price = parseFloat(
-      currentPrice.textContent.replace("R$ ", "").replace(".", "")
-    );
+    const quantity = parseInt(qtyInput.value) || 1;
+    // Remove "R$ ", pontos e vírgulas, depois converte para número
+    const priceText = currentPrice.textContent
+      .replace("R$", "")
+      .replace(/\./g, "")
+      .replace(",", ".")
+      .trim();
+    const price = parseFloat(priceText) || 0;
     const total = quantity * price;
 
-    totalPrice.textContent = `R$ ${total.toLocaleString("pt-BR")}`;
+    // Formata o total com separador de milhares
+    totalPrice.textContent = `R$ ${total.toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
     updateCartSummary();
   }
 }
@@ -1184,8 +1308,14 @@ function updateCartSummary() {
   let itemCount = 0;
 
   cart.forEach((item) => {
-    const quantity = item.quantity;
-    const price = parseFloat(item.price.replace("R$ ", "").replace(".", ""));
+    const quantity = item.quantity || 1;
+    // Remove "R$ ", pontos e vírgulas, depois converte para número
+    const priceText = (item.price || "0")
+      .replace("R$", "")
+      .replace(/\./g, "")
+      .replace(",", ".")
+      .trim();
+    const price = parseFloat(priceText) || 0;
     subtotal += quantity * price;
     itemCount += quantity;
   });
@@ -1193,8 +1323,11 @@ function updateCartSummary() {
   const subtotalElement = document.querySelector(
     ".summary-row span:last-child"
   );
-  if (subtotalElement) {
-    subtotalElement.textContent = `R$ ${subtotal.toLocaleString("pt-BR")}`;
+  if (subtotalElement && !subtotalElement.closest(".summary-row.total")) {
+    subtotalElement.textContent = `R$ ${subtotal.toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
   }
 
   const discount = 1000;
@@ -1204,14 +1337,18 @@ function updateCartSummary() {
     ".summary-row.total span:last-child"
   );
   if (totalElement) {
-    totalElement.textContent = `R$ ${total.toLocaleString("pt-BR")}`;
+    totalElement.textContent = `R$ ${total.toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
   }
 
   const itemCountElement = document.querySelector(
     ".summary-row span:first-child"
   );
   if (itemCountElement) {
-    itemCountElement.textContent = `Subtotal (${itemCount} itens)`;
+    const itemText = itemCount === 1 ? "item" : "itens";
+    itemCountElement.textContent = `Subtotal (${itemCount} ${itemText})`;
   }
 }
 
@@ -1413,5 +1550,389 @@ function clearAdminForm() {
   const form = document.getElementById("admin-form");
   if (form) {
     form.reset();
+  }
+}
+
+// ============================================================================
+// GERENCIAMENTO DE PEDIDOS
+// ============================================================================
+
+/**
+ * Salva um pedido no histórico do usuário
+ * @param {Array} cartItems - Itens do carrinho
+ * @param {number} subtotal - Subtotal do pedido
+ * @param {number} discount - Desconto aplicado
+ * @param {number} total - Total final do pedido
+ * @description Cria um novo pedido com todos os dados e salva no localStorage
+ */
+function saveOrder(cartItems, subtotal, discount, total) {
+  const user = getCurrentUser();
+  if (!user) return;
+
+  const order = {
+    id: `order-${Date.now()}`,
+    userId: user.id,
+    date: new Date().toLocaleString("pt-BR"),
+    items: cartItems.map(item => ({
+      name: item.name,
+      brand: item.brand || "",
+      specs: item.specs || "",
+      price: item.price,
+      quantity: item.quantity,
+      image: item.image,
+    })),
+    subtotal: subtotal,
+    discount: discount,
+    total: total,
+    status: "Confirmado"
+  };
+
+  const orders = getOrders();
+  orders.push(order);
+  localStorage.setItem("orders", JSON.stringify(orders));
+}
+
+/**
+ * Obtém todos os pedidos do usuário logado
+ * @returns {Array} Array com os pedidos do usuário
+ */
+function getOrders() {
+  const user = getCurrentUser();
+  if (!user) return [];
+
+  const allOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+  return allOrders.filter(order => order.userId === user.id);
+}
+
+/**
+ * Carrega e exibe os pedidos do usuário na página de conta
+ * @description Busca os pedidos do usuário e renderiza na seção de pedidos
+ */
+function loadUserOrders() {
+  const orders = getOrders();
+  const ordersList = document.querySelector(".orders-list");
+
+  if (!ordersList) return;
+
+  if (orders.length === 0) {
+    ordersList.innerHTML = '<p class="empty-message">Você ainda não realizou nenhum pedido.</p>';
+    return;
+  }
+
+  // Ordena pedidos por data (mais recente primeiro)
+  orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  ordersList.innerHTML = orders.map(order => {
+    const itemsList = order.items.map(item => 
+      `<div class="order-item">
+        <img src="${item.image || 'images/promo/macbook.png'}" alt="${item.name}" class="order-item-img" />
+        <div class="order-item-info">
+          <h4>${item.name}</h4>
+          <p>${item.specs || ''}</p>
+          <span>Quantidade: ${item.quantity}</span>
+        </div>
+        <span class="order-item-price">${item.price}</span>
+      </div>`
+    ).join('');
+
+    return `
+      <div class="order-card">
+        <div class="order-header">
+          <div class="order-info">
+            <h3>Pedido #${order.id.split('-')[1]}</h3>
+            <p class="order-date">${order.date}</p>
+          </div>
+          <span class="order-status">${order.status}</span>
+        </div>
+        <div class="order-items">
+          ${itemsList}
+        </div>
+        <div class="order-summary">
+          <div class="order-summary-row">
+            <span>Subtotal:</span>
+            <span>R$ ${order.subtotal.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+          </div>
+          <div class="order-summary-row">
+            <span>Desconto:</span>
+            <span>-R$ ${order.discount.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+          </div>
+          <div class="order-summary-row total">
+            <span>Total:</span>
+            <span>R$ ${order.total.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ============================================================================
+// GERENCIAMENTO DE FAVORITOS
+// ============================================================================
+
+/**
+ * Adiciona um produto aos favoritos
+ * @param {HTMLElement} cardElement - Elemento HTML do card do produto
+ * @description Extrai os dados do produto do card e salva nos favoritos do usuário
+ */
+function addToFavorites(cardElement) {
+  const user = getCurrentUser();
+  if (!user) {
+    alert("Você precisa estar logado para favoritar produtos.");
+    return;
+  }
+
+  // Extrai dados do produto do card (suporta tanto catalog-card quanto promo-card)
+  const productName = cardElement.querySelector(".promo-product-title")?.textContent ||
+                      cardElement.querySelector("h3")?.textContent || 
+                      cardElement.querySelector(".catalog-info h3")?.textContent || 
+                      "Produto";
+  const productImage = cardElement.querySelector(".promo-product-img")?.src ||
+                       cardElement.querySelector(".catalog-img")?.src || 
+                       cardElement.querySelector("img")?.src || 
+                       "images/promo/macbook.png";
+  const productPrice = cardElement.querySelector(".promo-price")?.textContent ||
+                       cardElement.querySelector(".catalog-price")?.textContent || 
+                       "R$ 0";
+  const productOldPrice = cardElement.querySelector(".catalog-old")?.textContent || "";
+  const productSpecs = cardElement.querySelector(".promo-specs")?.textContent || "";
+  const productBrand = cardElement.querySelector(".promo-brand")?.textContent || "";
+
+  const favorite = {
+    id: `fav-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    userId: user.id,
+    name: productName,
+    image: productImage,
+    price: productPrice,
+    oldPrice: productOldPrice,
+    specs: productSpecs,
+    brand: productBrand,
+    dateAdded: new Date().toLocaleString("pt-BR")
+  };
+
+  const favorites = getFavorites();
+  
+  // Verifica se já está nos favoritos (mesmo nome e preço)
+  const alreadyFavorite = favorites.find(
+    fav => fav.name === favorite.name && fav.price === favorite.price
+  );
+
+  if (!alreadyFavorite) {
+    favorites.push(favorite);
+    saveFavorites(favorites);
+    
+    // Atualiza a lista de favoritos se estiver na página de conta
+    const currentPage = localStorage.getItem("currentPage");
+    if (currentPage === "account") {
+      loadUserFavorites();
+    }
+  }
+}
+
+/**
+ * Remove um produto dos favoritos
+ * @param {HTMLElement} cardElement - Elemento HTML do card do produto
+ * @description Remove o produto dos favoritos do usuário
+ */
+function removeFromFavorites(cardElement) {
+  const user = getCurrentUser();
+  if (!user) return;
+
+  const productName = cardElement.querySelector(".promo-product-title")?.textContent ||
+                      cardElement.querySelector("h3")?.textContent || 
+                      cardElement.querySelector(".catalog-info h3")?.textContent || 
+                      "";
+  const productPrice = cardElement.querySelector(".promo-price")?.textContent ||
+                       cardElement.querySelector(".catalog-price")?.textContent || 
+                       "";
+
+  if (!productName || !productPrice) return;
+
+  const favorites = getFavorites();
+  const updatedFavorites = favorites.filter(
+    fav => !(fav.name === productName && fav.price === productPrice)
+  );
+
+  if (updatedFavorites.length !== favorites.length) {
+    saveFavorites(updatedFavorites);
+    
+    // Atualiza a lista de favoritos se estiver na página de conta
+    const currentPage = localStorage.getItem("currentPage");
+    if (currentPage === "account") {
+      loadUserFavorites();
+    }
+  }
+}
+
+/**
+ * Obtém todos os favoritos do usuário logado
+ * @returns {Array} Array com os produtos favoritos
+ */
+function getFavorites() {
+  const user = getCurrentUser();
+  if (!user) return [];
+
+  const allFavorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  return allFavorites.filter(fav => fav.userId === user.id);
+}
+
+/**
+ * Salva a lista de favoritos no localStorage
+ * @param {Array} favorites - Array com os favoritos a serem salvos
+ */
+function saveFavorites(favorites) {
+  const allFavorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  const user = getCurrentUser();
+  if (!user) return;
+
+  // Remove favoritos antigos do usuário
+  const otherUsersFavorites = allFavorites.filter(fav => fav.userId !== user.id);
+  
+  // Adiciona os novos favoritos
+  const updatedFavorites = [...otherUsersFavorites, ...favorites];
+  localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+}
+
+/**
+ * Carrega e exibe os favoritos do usuário na página de conta
+ * @description Busca os favoritos do usuário e renderiza na seção de favoritos
+ */
+function loadUserFavorites() {
+  const favorites = getFavorites();
+  const favoritesList = document.querySelector(".favorites-list");
+
+  if (!favoritesList) return;
+
+  if (favorites.length === 0) {
+    favoritesList.innerHTML = '<p class="empty-message">Você ainda não tem produtos favoritos.</p>';
+    return;
+  }
+
+  // Ordena favoritos por data (mais recente primeiro)
+  favorites.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+
+  favoritesList.innerHTML = favorites.map(favorite => {
+    return `
+      <div class="favorite-card">
+        <img src="${favorite.image}" alt="${favorite.name}" class="favorite-img" />
+        <div class="favorite-info">
+          <h3>${favorite.name}</h3>
+          ${favorite.specs ? `<p class="favorite-specs">${favorite.specs}</p>` : ''}
+          <div class="favorite-prices">
+            <span class="favorite-price">${favorite.price}</span>
+            ${favorite.oldPrice ? `<span class="favorite-old-price">${favorite.oldPrice}</span>` : ''}
+          </div>
+          <p class="favorite-date">Adicionado em: ${favorite.dateAdded}</p>
+        </div>
+        <button class="remove-favorite-btn" onclick="removeFavoriteById('${favorite.id}')">
+          <span>×</span>
+        </button>
+      </div>
+    `;
+  }).join('');
+}
+
+/**
+ * Remove um favorito pelo ID
+ * @param {string} favoriteId - ID do favorito a ser removido
+ * @description Remove o favorito e recarrega a lista. Função global para uso em onclick.
+ */
+window.removeFavoriteById = function(favoriteId) {
+  const user = getCurrentUser();
+  if (!user) return;
+
+  const favorites = getFavorites();
+  const updatedFavorites = favorites.filter(fav => fav.id !== favoriteId);
+  saveFavorites(updatedFavorites);
+  loadUserFavorites();
+};
+
+/**
+ * Verifica e atualiza o estado visual dos botões de favorito
+ * @description Verifica quais produtos estão favoritados e atualiza os ícones dos corações
+ */
+function updateFavoriteButtons() {
+  const favorites = getFavorites();
+  
+  // Atualiza botões de favorito nos cards do catálogo
+  document.querySelectorAll(".catalog-fav").forEach((btn) => {
+    const card = btn.closest(".catalog-card");
+    const productName = card.querySelector("h3")?.textContent || 
+                        card.querySelector(".catalog-info h3")?.textContent || "";
+    const productPrice = card.querySelector(".catalog-price")?.textContent || "";
+    const img = btn.querySelector("img");
+    
+    if (productName && productPrice) {
+      const isFavorite = favorites.find(
+        fav => fav.name === productName && fav.price === productPrice
+      );
+      
+      if (isFavorite) {
+        img.src = "images/coracao1.svg";
+        img.setAttribute("data-filled", "true");
+      } else {
+        img.src = "images/coracao-header.svg";
+        img.setAttribute("data-filled", "false");
+      }
+    }
+  });
+}
+
+// ============================================================================
+// CHECKOUT
+// ============================================================================
+
+/**
+ * Processa o checkout/finalização da compra
+ * @description Verifica se há itens no carrinho, salva o pedido, limpa o carrinho e exibe mensagem de sucesso
+ */
+function handleCheckout() {
+  const cart = getCart();
+  
+  if (cart.length === 0) {
+    alert("Seu carrinho está vazio. Adicione produtos antes de finalizar a compra.");
+    return;
+  }
+
+  const user = getCurrentUser();
+  if (!user) {
+    alert("Você precisa estar logado para finalizar a compra.");
+    loadPage("login");
+    return;
+  }
+
+  // Calcula o total
+  let subtotal = 0;
+  cart.forEach((item) => {
+    const quantity = item.quantity || 1;
+    const priceText = (item.price || "0")
+      .replace("R$", "")
+      .replace(/\./g, "")
+      .replace(",", ".")
+      .trim();
+    const price = parseFloat(priceText) || 0;
+    subtotal += quantity * price;
+  });
+  const discount = 1000;
+  const total = Math.max(0, subtotal - discount);
+
+  if (confirm(`Finalizar compra no valor de R$ ${total.toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}?`)) {
+    // Salva o pedido
+    saveOrder(cart, subtotal, discount, total);
+    
+    // Limpa o carrinho
+    clearCart();
+    
+    // Mostra mensagem de sucesso
+    alert("Compra finalizada com sucesso! Obrigado pela sua compra.");
+    
+    // Recarrega a página do carrinho para mostrar o carrinho vazio
+    loadCartItems();
+    updateCartSummary();
+    checkEmptyCart();
+    updateCartIcon();
   }
 }
